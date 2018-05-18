@@ -328,3 +328,19 @@ nav h1 a {
 		width: 46%;
 	}
 }
+
+@media (max-width: 600px) {
+	.inside #map-container{
+		width: 100%;
+		height: 300px;
+		position: relative;
+		top: 140px
+	}
+
+	#restaurant-container,
+	#reviews-container,
+	.inside #footer,
+	#breadcrumb {
+		width: 100%;
+	}
+}
