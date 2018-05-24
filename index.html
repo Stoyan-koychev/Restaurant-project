@@ -17,11 +17,11 @@
 
   <main id="maincontent">
     <section id="map-container">
-      <div id="map"></div>
+      <div id="map" aria-label = "Google Map Locations" role="application"></div>
     </section>
     <section>
       <div class="filter-options">
-        <div class="wrapper">
+        <div class="wrapper" tabindex="-1">
           <h2>Filter Results</h2>
             <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
               <option value="all">All Neighborhoods</option>
