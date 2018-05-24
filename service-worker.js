@@ -1,17 +1,26 @@
-let cacheName = 'test-v8';
+let cacheName = 'app-v1';
 
 self.addEventListener('install', function( e ) {
   console.log('[ServiceWorker] instaled');
   e.waitUntil(
     caches.open( cacheName ).then( function( cache ) {
-      console.log('[ServiceWorker] caching cacheFiles');
+      console.log('[ServiceWorker] caches.open '+ cacheName);
       return cache.addAll([
-        '/.',
+        '/',
         'js/main.js',
         'js/restaurant_info.js',
         'data/restaurants.json',
         'css/styles.css',
-        'img/'
+        'img/1.jpg',
+        'img/2.jpg',
+        'img/3.jpg',
+        'img/4.jpg',
+        'img/5.jpg',
+        'img/6.jpg',
+        'img/7.jpg',
+        'img/8.jpg',
+        'img/9.jpg',
+        'img/10.jpg'
       ]);
     })
   );
@@ -30,14 +39,28 @@ self.addEventListener('activate', function( event ) {
       }))
     })
   )
-})
+});
 
 self.addEventListener('fetch', function( event ) {
-  console.log('[ServiceWorker] fetched', event.request.url);
+  console.log('[ServiceWorker] fetched');
   event.respondWith(
     caches.match(event.request).then(function(response) {
-      if (response) return response
-      return fetch(event.request);
+      if (response) {
+        return response;
+      }
+      return fetch(event.request)
+        .then( function(res) {
+          if (!res || res.status !== 200|| res.type !== 'basic') {
+            return res;
+          }
+
+          let resp = res.clone();
+          caches.open(cacheName).then( function(cache) {
+              cache.put(event.request, resp);
+            });
+          return res;
+
+        })
     })
   )
-})
+});
